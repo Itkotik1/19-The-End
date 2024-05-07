@@ -115,7 +115,7 @@ int main() {
         cout << "3. Add a circle at a specific position\\n";
         cout << "4. Print circles with area less than a threshold\\n";
         cout << "5. Destroy the list\\n";
-        cout << "6. Exit\\n";
+        cout << "6. Выход\\n";
 
         cout << "\\nEnter your choice: ";
         cin >> choice;
