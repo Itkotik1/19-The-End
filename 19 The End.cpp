@@ -24,8 +24,8 @@ public:
     CircularLinkedList();
     void createList();
     void printList();
-    void addCircle(float r, int position);
-    void printCirclesUnderArea(float thresholdArea);
+    void addCircle(float r);
+    void printCirclesUnderArea();
     void destroyList();
 };
 
@@ -79,12 +79,15 @@ void CircularLinkedList:: printList()
         temp = temp->next;
     } while (temp != first);
 }
-void CircularLinkedList::addCircle(float r, int position)
+void CircularLinkedList::addCircle(float r)
 {
-    if (position < 0 || position > size) {
-        cout << "Недопустимая позиция!" << endl;
-        return;
+    int position;
+    do
+    {
+        cout << "Введите позицию для добавления круга: ";
+        cin >> position;
     }
+    while (position < 0 || position > size);
 
     Circle* newCircle = new Circle(r);
     if (position == 0) {
@@ -102,7 +105,7 @@ void CircularLinkedList::addCircle(float r, int position)
     size++;
 }
 
-void CircularLinkedList::printCirclesUnderArea(float thresholdArea)
+void CircularLinkedList::printCirclesUnderArea()
 {
     int count = 0;
     Circle* temp = first;
@@ -163,11 +166,10 @@ int main(){
                 break;
             case 3:
                 cout << "Введите радиус круга: "; cin >> radius;
-                cout << "Введите нужную позицию добавления: "; cin >> position;
-                list.addCircle(radius, position);
+                list.addCircle(radius);
                 break;
             case 4:
-                list.printCirclesUnderArea(20);
+                list.printCirclesUnderArea();
                 break;
             case 5:
                 list.destroyList();
