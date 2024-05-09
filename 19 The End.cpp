@@ -17,54 +17,67 @@ Circle::Circle(float r)
 
 class CircularLinkedList {
 private:
-    Circle* head;
+    Circle* first,*x;
     int size;
 
 public:
-    CircularLinkedList(Circle* h = nullptr, int s = 0);
-    void createList(float r);
+    CircularLinkedList();
+    void createList();
     void printList();
     void addCircle(float r, int position);
     void printCirclesUnderArea(float thresholdArea);
     void destroyList();
 };
 
-CircularLinkedList::CircularLinkedList(Circle* h, int s)
+CircularLinkedList::CircularLinkedList()
 {
-    head = h;
-    size = s;
+    first = x = nullptr;
+    size = 0;
 
 }
-void CircularLinkedList:: createList(float r)
+void CircularLinkedList:: createList()
 {
-    Circle* newCircle = new Circle(r);
-    if (head == nullptr) {
-        head = newCircle;
-        newCircle->next = head;
+    if (first)
+    {
+        cout << "Список уже создан! Удалите его и создавайте новый!" << endl;
+        return;
+
     }
-    else {
-        Circle* temp = head;
-        while (temp->next != head) {
-            temp = temp->next;
+    float r;
+    
+    while (1)
+    {
+        cout << "Вводите радиус нового круга, '0' - конец ввода : "; cin >> r;
+        if (r == 0) break;
+        Circle* newCircle = new Circle(r);
+        if (first == nullptr) {
+            first = newCircle;
+            newCircle->next = first;
         }
-        temp->next = newCircle;
-        newCircle->next = head;
+        else {
+            Circle* temp = first;
+            while (temp->next != first) {
+                temp = temp->next;
+            }
+            temp->next = newCircle;
+            newCircle->next = first;
+        }
+        size++;
     }
-    size++;
 }
 
 void CircularLinkedList:: printList()
 {
-    if (head == nullptr) {
+    if (first == nullptr) {
         cout << "Список пустой!" << endl;
         return;
     }
 
-    Circle* temp = head;
+    Circle* temp = first;
     do {
         cout << "Круг с радиусом " << temp->radius << endl;
         temp = temp->next;
-    } while (temp != head);
+    } while (temp != first);
 }
 void CircularLinkedList::addCircle(float r, int position)
 {
@@ -75,11 +88,11 @@ void CircularLinkedList::addCircle(float r, int position)
 
     Circle* newCircle = new Circle(r);
     if (position == 0) {
-        newCircle->next = head;
-        head = newCircle;
+        newCircle->next = first;
+        first = newCircle;
     }
     else {
-        Circle* temp = head;
+        Circle* temp = first;
         for (int i = 0; i < position - 1; i++) {
             temp = temp->next;
         }
@@ -92,7 +105,7 @@ void CircularLinkedList::addCircle(float r, int position)
 void CircularLinkedList::printCirclesUnderArea(float thresholdArea)
 {
     int count = 0;
-    Circle* temp = head;
+    Circle* temp = first;
     do {
         float area = 3.1415 * temp->radius * temp->radius;
         if (area < thresholdArea) {
@@ -100,26 +113,26 @@ void CircularLinkedList::printCirclesUnderArea(float thresholdArea)
             count++;
         }
         temp = temp->next;
-    } while (temp != head && count < 15);
+    } while (temp != first && count < 15);
 
 }
 
 void CircularLinkedList::destroyList()
 {
-    if (head == nullptr) {
+    if (first == nullptr) {
         return;
     }
 
-    Circle* current = head;
+    Circle* current = first;
     Circle* nextCircle;
 
     do {
         nextCircle = current->next;
         delete current;
         current = nextCircle;
-    } while (current != head);
+    } while (current != first);
 
-    head = nullptr;
+    first = nullptr;
     size = 0;
 }
 
@@ -142,8 +155,8 @@ int main(){
 
             switch (choice) {
             case 1:
-                cout << "Введите радиус круга: "; cin >> radius;
-                list.createList(radius);
+
+                list.createList();
                 break;
             case 2:
                 list.printList();
