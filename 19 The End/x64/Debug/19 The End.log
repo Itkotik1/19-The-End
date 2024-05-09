@@ -1,0 +1,3 @@
+﻿  19 The End.cpp
+C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(97,20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  19 The End.vcxproj -> C:\Users\Катя\Desktop\C++\19 The End\x64\Debug\19 The End.exe
