@@ -115,7 +115,8 @@ void CircularLinkedList::addCircle(float r)
     }
     while (position < 0 || position > size);
 
-    El* newCircle = new El(r);
+    El* newCircle = new El;
+    newCircle->circle.vvod();
     if (position == 0) {
         newCircle->next = first;
         first = newCircle;
@@ -168,7 +169,6 @@ void CircularLinkedList::destroyList()
 
 int main(){
     setlocale(LC_ALL, "Russian");
-    Circle c;
     CircularLinkedList list;
     int choice;
     float radius;
@@ -204,17 +204,11 @@ int main(){
                 list.destroyList();
                 break;
             case 6:
-                c.vvod();
-                break;
-             case 7:
-                c.vivod();
-                break;
-            case 8:
                 cout << "Вы вышли из меню выбора!" << endl;
                 break;
             default:
                 cout << "Неверный выбор, попробуйте заново!" << endl;
             }
-        } while (choice != 8);
+        } while (choice !=6);
         return 0;
 };
