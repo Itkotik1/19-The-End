@@ -1,4 +1,5 @@
 ﻿  19 The End.cpp
-C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(113,20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(148,9): warning C4101: position: неиспользованная локальная переменная
+C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(71,11): warning C4101: r: неиспользованная локальная переменная
+C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(139,20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\Катя\Desktop\C++\19 The End\19 The End.cpp(175,9): warning C4101: position: неиспользованная локальная переменная
   19 The End.vcxproj -> C:\Users\Катя\Desktop\C++\19 The End\x64\Debug\19 The End.exe

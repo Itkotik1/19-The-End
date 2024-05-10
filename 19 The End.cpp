@@ -4,20 +4,45 @@ const float thresholdArea = 20;
 class Circle {
 public:
     float radius;
-    Circle* next;
-
     Circle(float r = 13.13);
+    void vvod();
+    void vivod();
 };
 
 Circle::Circle(float r)
 {
     radius = r;
+}
+
+void Circle::vvod()
+{
+    cout << "Введите радиус круга, радиус не должен быть равен нулю, иначе выход из заполнения: "; 
+    cin >> radius;
+}
+
+void Circle::vivod()
+{
+    cout << "Ваш круг с радиусом - " <<radius<<endl;
+}
+
+
+class El
+{
+public:
+    Circle circle;
+    El* next;
+    El(float r =13.13);
+};
+El::El(float r)
+{
+    circle = r;
     next = nullptr;
 }
 
+
 class CircularLinkedList {
 private:
-    Circle* first,*x;
+    El* first, *temp;
     int size;
 
 public:
@@ -31,7 +56,7 @@ public:
 
 CircularLinkedList::CircularLinkedList()
 {
-    first = x = nullptr;
+    first = temp = nullptr;
     size = 0;
 
 }
@@ -47,15 +72,16 @@ void CircularLinkedList:: createList()
     
     while (1)
     {
-        cout << "Вводите радиус нового круга, '0' - конец ввода : "; cin >> r;
-        if (r == 0) break;
-        Circle* newCircle = new Circle(r);
+        El* newCircle = new El;
+        newCircle->circle.vvod();
+        if (newCircle->circle.radius == 0) break;
+        
         if (first == nullptr) {
             first = newCircle;
             newCircle->next = first;
         }
         else {
-            Circle* temp = first;
+            temp = first;
             while (temp->next != first) {
                 temp = temp->next;
             }
@@ -73,9 +99,9 @@ void CircularLinkedList:: printList()
         return;
     }
 
-    Circle* temp = first;
+    El* temp = first;
     do {
-        cout << "Круг с радиусом " << temp->radius << endl;
+        temp->circle.vivod();// использован вывод - метод класса Circle
         temp = temp->next;
     } while (temp != first);
 }
@@ -89,13 +115,13 @@ void CircularLinkedList::addCircle(float r)
     }
     while (position < 0 || position > size);
 
-    Circle* newCircle = new Circle(r);
+    El* newCircle = new El(r);
     if (position == 0) {
         newCircle->next = first;
         first = newCircle;
     }
     else {
-        Circle* temp = first;
+        temp = first;
         for (int i = 0; i < position - 1; i++) {
             temp = temp->next;
         }
@@ -108,11 +134,11 @@ void CircularLinkedList::addCircle(float r)
 void CircularLinkedList::printCirclesUnderArea()
 {
     int count = 0;
-    Circle* temp = first;
+    temp = first;
     do {
-        float area = 3.1415 * temp->radius * temp->radius;
+        float area = 3.1415 * temp->circle.radius * temp->circle.radius;
         if (area < thresholdArea) {
-            cout << "Круги с радиусами " << temp->radius << " меньше чем " << thresholdArea << endl;
+            cout << "Круги с радиусами " << temp->circle.radius << " меньше чем " << thresholdArea << endl;
             count++;
         }
         temp = temp->next;
@@ -126,8 +152,8 @@ void CircularLinkedList::destroyList()
         return;
     }
 
-    Circle* current = first;
-    Circle* nextCircle;
+    El* current = first;
+    El* nextCircle;
 
     do {
         nextCircle = current->next;
@@ -142,18 +168,21 @@ void CircularLinkedList::destroyList()
 
 int main(){
     setlocale(LC_ALL, "Russian");
+    Circle c;
     CircularLinkedList list;
     int choice;
     float radius;
     int position;
         do {
             cout << "Меню:"<<endl;
-            cout << "1. Создать круг"<<endl;
+            cout << "1. Создать  список с элементами круг"<<endl;
             cout << "2. Распечатать весь список" << endl;
             cout << "3. Добавить элемент в заданную позицию списка" << endl;
             cout << "4. Распечать список с заданным условием" << endl;
             cout << "5. Уничтожение списка"<<endl;
-            cout << "6. Выход из меню " << endl;
+            cout << "6. Создать круг" << endl;
+            cout << "7. Вывести значения созданного круга" << endl;
+            cout << "8. Выход из меню " << endl;
             cout << "Ваш выбор: "; cin >> choice;
 
             switch (choice) {
@@ -175,11 +204,17 @@ int main(){
                 list.destroyList();
                 break;
             case 6:
+                c.vvod();
+                break;
+             case 7:
+                c.vivod();
+                break;
+            case 8:
                 cout << "Вы вышли из меню выбора!" << endl;
                 break;
             default:
                 cout << "Неверный выбор, попробуйте заново!" << endl;
             }
-        } while (choice != 6);
+        } while (choice != 8);
         return 0;
 };
