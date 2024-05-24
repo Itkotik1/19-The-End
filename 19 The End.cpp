@@ -1,8 +1,10 @@
 ﻿#include <iostream>
 using namespace std;
 const float thresholdArea = 20;
+
 class Circle {
-public:
+    public:
+
     float radius;
     Circle(float r = 13.13);
     void vvod();
@@ -49,10 +51,40 @@ public:
     CircularLinkedList();
     void createList();
     void printList();
-    void addCircle(float r);
+    void addCircle();
     void printCirclesUnderArea();
     void destroyList();
+    void proverka();
 };
+
+void CircularLinkedList::proverka()
+{
+    if (first == nullptr) {
+        cout << "Список пустой." << endl;
+        return;
+    }
+    float sum = 0;
+    temp = first;
+    
+    while (sum < 1000)
+    {
+
+        temp->circle.vivod();
+        temp = temp->next;
+        sum += 10;
+    }
+    /*
+    temp = first;
+    do {
+        temp->circle.vivod();
+        temp = temp->next;
+
+        if (temp == first) {
+            temp->circle.vivod();
+        }
+    } while (temp != first);
+    */
+}
 
 CircularLinkedList::CircularLinkedList()
 {
@@ -101,11 +133,11 @@ void CircularLinkedList:: printList()
 
     El* temp = first;
     do {
-        temp->circle.vivod();// использован вывод - метод класса Circle
+        temp->circle.vivod();
         temp = temp->next;
     } while (temp != first);
 }
-void CircularLinkedList::addCircle(float r)
+void CircularLinkedList::addCircle()
 {
     int position;
     do
@@ -143,7 +175,7 @@ void CircularLinkedList::printCirclesUnderArea()
             count++;
         }
         temp = temp->next;
-    } while (temp != first && count < 15);
+    } while (count < 15);
 
 }
 
@@ -179,10 +211,9 @@ int main(){
             cout << "2. Распечатать весь список" << endl;
             cout << "3. Добавить элемент в заданную позицию списка" << endl;
             cout << "4. Распечать список с заданным условием" << endl;
-            cout << "5. Уничтожение списка"<<endl;
-            cout << "6. Создать круг" << endl;
-            cout << "7. Вывести значения созданного круга" << endl;
-            cout << "8. Выход из меню " << endl;
+            cout << "5. Уничтожение списка" << endl;
+            cout << "6. Проверка, что список кольцевой!" << endl;
+            cout << "7. Выход из меню " << endl;
             cout << "Ваш выбор: "; cin >> choice;
 
             switch (choice) {
@@ -194,8 +225,7 @@ int main(){
                 list.printList();
                 break;
             case 3:
-                cout << "Введите радиус круга: "; cin >> radius;
-                list.addCircle(radius);
+                list.addCircle();
                 break;
             case 4:
                 list.printCirclesUnderArea();
@@ -204,11 +234,14 @@ int main(){
                 list.destroyList();
                 break;
             case 6:
+                list.proverka();
+                break;
+            case 7:
                 cout << "Вы вышли из меню выбора!" << endl;
                 break;
             default:
                 cout << "Неверный выбор, попробуйте заново!" << endl;
             }
-        } while (choice !=6);
+        } while (choice !=7);
         return 0;
 };
